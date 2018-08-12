@@ -1,0 +1,34 @@
+\chapter{QBoxLayout}
+\section{void QBoxLayout::addStretch(int stretch = 0)}
+Adds a stretchable space (a QSpacerItem) with zero minimum size and stretch factor stretch to the end of this box layout.\\
+函数的作用是在布局器中增加一个伸缩量，%
+里面的参数表示QSpacerItem的个数，默认值为零，%
+会将你放在layout中的空间压缩成默认的大小。\\
+例如：一个layout布局器，里面有三个控件，一个放在最左边，%
+一个放在最右边，最后一个放在layout的1/3处，这就可以通过addStretch去实现。\\
+例子：用addStretch函数实现将nLayout的布局器的空白空间平均分配：
+\begin{lstlisting}
+  QHBoxLayout *buttonLayout=new QHBoxLayout;
+  button1=new QPushButton();
+  button2=new QPushButton();
+  button3=new QPushButton();
+  buttonLayout->addStretch(1);  //增加伸缩量
+  buttonLayout->addWidget(button1);
+  buttonLayout->addStretch(1);  //增加伸缩量
+  buttonLayout->addWidget(button2);
+  buttonLayout->addStretch(1);  //增加伸缩量
+  buttonLayout->addWidget(button3);
+  buttonLayout->addStretch(6);  //增加伸缩量
+  //void QWidget::setContentsMargins(int left, int top, int right, int bottom)
+  //Sets the margins around the contents of the widget to have the sizes left, top, right, and bottom.
+  //The margins are used by the layout system, and may be used by subclasses to specify the area to draw in (e.g. excluding the frame).
+  buttonLayout->setContentsMargins(0,0,0,0);
+  setLayout(buttonLayout);
+\end{lstlisting}
+其中四个addStretch()函数用于在button按钮间增加伸缩量，%
+伸缩量的比例为1:1:1:6，%
+意思就是将button以外的空白地方按设定的比例等分为9份并按照设定的顺序放入buttonLayout布局器中。%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

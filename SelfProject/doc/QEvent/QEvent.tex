@@ -1,0 +1,202 @@
+\chapter{QEvent}
+QEvent::Type中事件的类型，每个事件类型和每个类型的专门类如下.
+\begin{itemize}
+\item{QEvent::None:不是一个事件}
+\item{QEvent::ActionAdded：一个新的action被添加(QActionEvent)}
+\item{QEvent::ActionChanged：一个action被改变(QActionEvent)}
+\item{QEvent::ActionRemoved：一个action被移除(QActionEvent)}
+\item{QEvent::ActivationChange：Widget的顶层窗口激活状态发生了变化}
+\item{QEvent::ApplicationFontChange：应用程序的字体发生了改变}
+\item{QEvent::ApplicationLayoutDirectionChange：应用程序的布局方向发生了改变}
+\item{QEvent::ApplicationPaletteChange：应用程序的默认调色板发生了变化}
+\item{QEvent::ApplicationStateChange：应用程序的状态发生了变化}
+\item{QEvent::ApplicationWindowIconChange：应用程序的图标发生了变化}
+\item{QEvent::ChildAdded：一个对象获得孩子（QChildEvent）}
+\item{QEvent::ChildPolished：一个部件的孩子被抛光（QChildEvent）}
+\item{QEvent::ChildRemoved：一个对象去除孩子（QChildEvent）}
+\item{QEvent::Clipboard：剪贴板的内容发生改变}
+\item{QEvent::Close：Widget 被关闭（QCloseEvent）}
+\item{QEvent::CloseSoftwareInputPanel：一个部件要关闭软件输入面板}
+\item{QEvent::ContentsRectChange：部件内容区域的外边距发生改变}
+\item{QEvent::ContextMenu：上下文弹出菜单（QContextMenuEvent）}
+\item{QEvent::CursorChange：部件的鼠标发生改变}
+\item{QEvent::DeferredDelete：对象被清除后将被删除（QDeferredDeleteEvent）}
+\item{QEvent::DragEnter：在拖放操作期间鼠标进入窗口部件（QDragEnterEvent）}
+\item{QEvent::DragLeave：在拖放操作期间鼠标离开窗口部件（QDragLeaveEvent）}
+\item{QEvent::DragMove：拖放操作正在进行（QDragMoveEvent）}
+\item{QEvent::Drop：拖放操作完成（QDropEvent）}
+\item{QEvent::DynamicPropertyChange：动态属性已添加、更改或从对象中删除}
+\item{QEvent::EnabledChange：部件的 enabled 状态已更改}
+\item{QEvent::Enter：鼠标进入部件的边界（QEnterEvent）}
+\item{QEvent::EnterEditFocus：编辑部件获得焦点进行编辑}
+\item{QEvent::EnterWhatsThisMode：当应用程序进入“What’s This?”模式，发送到 toplevel 顶层部件}
+\item{QEvent::Expose：当其屏幕上的内容无效，发送到窗口，并需要从后台存储刷新}
+\item{QEvent::FileOpen：文件打开请求（QFileOpenEvent）}
+\item{QEvent::FocusIn：部件或窗口获得键盘焦点（QFocusEvent）}
+\item{QEvent::FocusOut：部件或窗口失去键盘焦点（QFocusEvent）}
+\item{QEvent::FocusAboutToChange：部件或窗口焦点即将改变（QFocusEvent）}
+\item{QEvent::FontChange：部件的字体发生改变}
+\item{QEvent::Gesture：触发了一个手势（QGestureEvent）}
+\item{QEvent::GestureOverride：触发了手势覆盖（QGestureEvent）}
+\item{QEvent::GrabKeyboard：Item 获得键盘抓取（仅限 QGraphicsItem）}
+\item{QEvent::GrabMouse：项目获得鼠标抓取（仅限 QGraphicsItem）}
+\item{QEvent::GraphicsSceneContextMenu：在图形场景上的上下文弹出菜单（QGraphicsScene ContextMenuEvent）}
+\item{QEvent::GraphicsSceneDragEnter：在拖放操作期间，鼠标进入图形场景（QGraphicsSceneDragDropEvent）}
+\item{QEvent::GraphicsSceneDragLeave：在拖放操作期间鼠标离开图形场景（QGraphicsSceneDragDropEvent）}
+\item{QEvent::GraphicsSceneDragMove：在场景上正在进行拖放操作（QGraphicsSceneDragDropEvent）}
+\item{QEvent::GraphicsSceneDrop：在场景上完成拖放操作（QGraphicsSceneDragDropEvent）}
+\item{QEvent::GraphicsSceneHelp：用户请求图形场景的帮助（QHelpEvent）}
+\item{QEvent::GraphicsSceneHoverEnter：鼠标进入图形场景中的悬停项（QGraphicsSceneHoverEvent）}
+\item{QEvent::GraphicsSceneHoverLeave：鼠标离开图形场景中一个悬停项（QGraphicsSceneHoverEvent）}
+\item{QEvent::GraphicsSceneHoverMove：鼠标在图形场景中的悬停项内移动（QGraphicsSceneHoverEvent）}
+\item{QEvent::GraphicsSceneMouseDoubleClick：鼠标在图形场景中再次按下（双击）（QGraphicsSceneMouseEvent）}
+\item{QEvent::GraphicsSceneMouseMove：鼠标在图形场景中移动（QGraphicsSceneMouseEvent）}
+\item{QEvent::GraphicsSceneMousePress：鼠标在图形场景中按下（QGraphicsSceneMouseEvent）}
+\item{QEvent::GraphicsSceneMouseRelease：鼠标在图形场景中释放（QGraphicsSceneMouseEvent）}
+\item{QEvent::GraphicsSceneMove：部件被移动（QGraphicsSceneMoveEvent）}
+\item{QEvent::GraphicsSceneResize：部件已调整大小（QGraphicsSceneResizeEvent）}
+\item{QEvent::GraphicsSceneWheel：鼠标滚轮在图形场景中滚动（QGraphicsSceneWheelEvent）}
+\item{QEvent::Hide：部件被隐藏（QHideEvent）}
+\item{QEvent::HideToParent：子部件被隐藏（QHideEvent）}
+\item{QEvent::HoverEnter：鼠标进入悬停部件（QHoverEvent）}
+\item{QEvent::HoverLeave：鼠标留离开悬停部件（QHoverEvent）}
+\item{QEvent::HoverMove：鼠标在悬停部件内移动（QHoverEvent）}
+\item{QEvent::IconDrag：窗口的主图标被拖走（QIconDragEvent）}
+\item{QEvent::InputMethod：正在使用输入法（QInputMethodEvent）}
+\item{QEvent::InputMethodQuery：输入法查询事件（QInputMethodQueryEvent）}
+\item{QEvent::KeyboardLayoutChange：键盘布局已更改}
+\item{QEvent::KeyPress：键盘按下（QKeyEvent）}
+\item{QEvent::KeyRelease：键盘释放（QKeyEvent）}
+\item{QEvent::LanguageChange：应用程序翻译发生改变}
+\item{QEvent::LayoutDirectionChange：布局的方向发生改变}
+\item{QEvent::LayoutRequst：部件的布局需要重做}
+\item{QEvent::Leave：鼠标离开部件的边界}
+\item{QEvent::LeaveEditFocus：编辑部件失去编辑的焦点}
+\item{QEvent::LeaveWhatsThisMode：当应用程序离开“What’s This?”模式，发送到顶层部件}
+\item{QEvent::LocaleChange：系统区域设置发生改变}
+\item{QEvent::NonClientAreaMouseButtonDblClick：鼠标双击发生在客户端区域外}
+\item{QEvent::NonClientAreaMouseButtonPress：鼠标按钮按下发生在客户端区域外}
+\item{QEvent::NonClientAreaMouseButtonRelease：鼠标按钮释放发生在客户端区域外}
+\item{QEvent::NonClientAreaMouseMove：鼠标移动发生在客户区域外}
+\item{QEvent::MacSizeChange：用户更改了部件的大小（仅限 OS X）}
+\item{QEvent::MetaCall：通过 QMetaObject::invokeMethod() 调用异步方法}
+\item{QEvent::ModifiedChange：部件修改状态发生改变}
+\item{QEvent::MouseButtonDblClick：鼠标再次按下（QMouseEvent）}
+\item{QEvent::MouseButtonPress：鼠标按下（QMouseEvent）}
+\item{QEvent::MouseButtonRelease：鼠标释放（QMouseEvent）}
+\item{QEvent::MouseMove：鼠标移动（QMouseEvent）}
+\item{QEvent::MouseTrackingChange：鼠标跟踪状态发生改变}
+\item{QEvent::Move：部件的位置发生改变（QMoveEvent）}
+\item{QEvent::NativeGesture：系统检测到手势（QNativeGestureEvent）}
+\item{QEvent::OrientationChange：屏幕方向发生改变（QScreenOrientationChangeEvent）}
+\item{QEvent::Paint：需要屏幕更新（QPaintEvent）}
+\item{QEvent::PaletteChange：部件的调色板发生改变}
+\item{QEvent::ParentAboutToChange：部件的 parent 将要更改}
+\item{QEvent::ParentChange：部件的 parent 发生改变}
+\item{QEvent::PlatformPanel：请求一个特定于平台的面板}
+\item{QEvent::PlatformSurface：原生平台表面已创建或即将被销毁（QPlatformSurfaceEvent）}
+\item{QEvent::Polish：部件被抛光}
+\item{QEvent::PolishRequest：部件应该被抛光}
+\item{QEvent::QueryWhatsThis：如果部件有“What’s This?”帮助，应该接受事件}
+\item{QEvent::ReadOnlyChange：部件的 read-only 状态发生改变}
+\item{QEvent::RequestSoftwareInputPanel：部件想要打开软件输入面板}
+\item{QEvent::Resize：部件的大小发生改变（QKeyEvent）}
+\item{QEvent::ScrollPrepare：对象需要填充它的几何信息（QScrollPrepareEvent）}
+\item{QEvent::Scroll：对象需要滚动到提供的位置（QScrollEvent）}
+\item{QEvent::Shortcut：快捷键处理（QShortcutEvent）}
+\item{QEvent::ShortcutOverride：按下按键，用于覆盖快捷键（QKeyEvent）}
+\item{QEvent::Show：部件显示在屏幕上（QShowEvent）}
+\item{QEvent::ShowToParent：子部件被显示}
+\item{QEvent::SockAct：Socket 激活，用于实现 QSocketNotifier}
+\item{QEvent::StateMachineSignal：信号被传递到状态机（QStateMachine::SignalEvent）}
+\item{QEvent::StateMachineWrapped：事件是一个包装器，用于包含另一个事件（QStateMachine::WrappedEvent）}
+\item{QEvent::StatusTip：状态提示请求（QStatusTipEvent）}
+\item{QEvent::StyleChange：部件的样式发生改变}
+\item{QEvent::TabletMove：Wacom 写字板移动（QTabletEvent）}
+\item{QEvent::TabletPress：Wacom 写字板按下（QTabletEvent）}
+\item{QEvent::TabletRelease：Wacom 写字板释放（QTabletEvent）}
+\item{QEvent::TabletEnterProximity：Wacom 写字板进入接近事件（QTabletEvent），发送到 QApplication}
+\item{QEvent::TabletLeaveProximity：Wacom 写字板离开接近事件（QTabletEvent），发送到 QApplication}
+\item{QEvent::TabletTrackingChange：}
+\item{QEvent::ThreadChange：对象被移动到另一个线程。这是发送到此对象的最后一个事件在上一个线程中，参见：QObject::moveToThread()}
+\item{QEvent::Timer：定时器事件（QTimerEvent）}
+\item{QEvent::ToolBarChange：工具栏按钮在 OS X 上进行切换}
+\item{QEvent::ToolTip：一个 tooltip 请求（QHelpEvent）}
+\item{QEvent::ToolTipChange：部件的 tooltip 发生改变}
+\item{QEvent::TouchBegin：触摸屏或轨迹板事件序列的开始（QTouchEvent）}
+\item{QEvent::TouchCannel：取消触摸事件序列（QTouchEvent）}
+\item{QEvent::TouchEnd：触摸事件序列结束（QTouchEvent）}
+\item{QEvent::TouchUpdate：触摸屏事件（QTouchEvent）}
+\item{QEvent::UngrabMouse：Item 失去鼠标抓取（QGraphicsItem、QQuickItem）}
+\item{QEvent::UpdateLater：部件应该排队在以后重新绘制}
+\item{QEvent::UpdateRequest：部件应该被重绘}
+\item{QEvent::WhatsThis：部件应该显示“What’s This”帮助（QHelpEvent）}
+\item{QEvent::WhatsThisClicked：部件的“What’s This”帮助链接被点击}
+\item{QEvent::Wheel：鼠标滚轮滚动（QWheelEvent）}
+\item{QEvent::WinEventAct：发生了 Windows 特定的激活事件}
+\item{QEvent::WindowActivate：窗口已激活}
+\item{QEvent::WindowBlocked：窗口被模态对话框阻塞}
+\item{QEvent::WindowDeactivatge：窗户被停用}
+\item{QEvent::WindowStateChange：窗口的状态（最小化、最大化或全屏）发生改变（QWindowStateChangeEvent）}
+\item{QEvent::WindowTitleChange：窗口的标题发生改变}
+\item{QEvent::WindowUnblocked：一个模态对话框退出后，窗口将不被阻塞}
+\item{QEvent::WinIdChange：本地窗口的系统标识符发生改变}
+\item{QEvent::ZOrderChange：部件的 z 值发生了改变，该事件不会发送给顶层窗口}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
