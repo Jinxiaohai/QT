@@ -1,0 +1,65 @@
+﻿#include <QPainter>
+#include "widget.h"
+#include "ui_widget.h"
+
+Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
+  ui->setupUi(this);
+  pix = QPixmap(400, 300);
+  pix.fill(Qt::white);
+  tempPix = pix;
+  isDrawing = false;
+}
+
+Widget::~Widget() { delete ui; }
+
+void Widget::changeEvent(QEvent *e) {
+  QWidget::changeEvent(e);
+  switch (e->type()) {
+    case QEvent::LanguageChange:
+      ui->retranslateUi(this);
+      break;
+    default:
+      break;
+  }
+}
+
+void Widget::mousePressEvent(QMouseEvent *event) {
+  if (event->button() == Qt::LeftButton) {
+    startPoint = event->pos();
+    isDrawing = true;
+  }
+}
+
+void Widget::mouseMoveEvent(QMouseEvent *event) {
+  if (event->button() & Qt::LeftButton) {
+    endPoint = event->pos();
+    tempPix = pix;
+    update();
+  }
+}
+
+void Widget::mouseReleaseEvent(QMouseEvent *event) {
+  if (event->button() == Qt::LeftButton) {
+    endPoint = event->pos();
+    isDrawing = false;
+    update();
+  }
+}
+
+void Widget::paintEvent(QPaintEvent *event) {
+  int x = startPoint.x();
+  int y = startPoint.y();
+  int width = endPoint.x() - x;
+  int height = endPoint.y() - y;
+
+  QPainter painter;
+  painter.begin(&tempPix);
+  painter.drawRect(x, y, width, height);
+  painter.end();
+
+  painter.begin(this);
+  painter.drawPixmap(0, 0, tempPix);
+  if (!isDrawing) {
+    pix = tempPix;
+  }
+}
