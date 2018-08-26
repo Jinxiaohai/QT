@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>822</width>
+    <height>582</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="inputFileListLabel">
+            <property name="text">
+             <string>ROOT文件列表：</string>
+            </property>
+            <property name="buddy">
+             <cstring>inputFileListLineEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="inputFileListLineEdit">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="resultFileNameLabel">
+            <property name="text">
+             <string>结果文件名称：</string>
+            </property>
+            <property name="buddy">
+             <cstring>resultFileNameLineEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="resultFileNameLineEdit"/>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <widget class="QWidget" name="helium3Tab">
+           <attribute name="title">
+            <string>生成氦3参数</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="3" column="0">
+             <widget class="QLabel" name="helium3CentralityHighLabel">
+              <property name="text">
+               <string>中心度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3CentralityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLabel" name="helium3RapidityHighLabel">
+              <property name="text">
+               <string>快度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3RapidityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="helium3WaitingLabel">
+              <property name="text">
+               <string>留着待用：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3WaitingLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="helium3MassLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="helium3CentralityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="helium3PtHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="helium3MassLabel">
+              <property name="text">
+               <string>粒子质量：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3MassLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="helium3CentralityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLineEdit" name="helium3WaitingLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="helium3RapidityLowLabel">
+              <property name="text">
+               <string>快度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3RapidityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="helium3CentralityLowLabel">
+              <property name="text">
+               <string>中心度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3CentralityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="helium3PIDLabel">
+              <property name="text">
+               <string>氦3(PID)：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3PIDLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="helium3PtHighLabel">
+              <property name="text">
+               <string>横动量上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3PtHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="helium3RapidityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="helium3PIDLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="helium3PtLowLabel">
+              <property name="text">
+               <string>横动量下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>helium3PtLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLineEdit" name="helium3RapidityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="helium3PtLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="6">
+             <widget class="QCheckBox" name="helium3CheckBox">
+              <property name="text">
+               <string>是否要生成Helium3粒子？</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="antiHelium3Tab">
+           <attribute name="title">
+            <string>生成反氦3参数</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="0" column="0" colspan="6">
+             <widget class="QCheckBox" name="antiHelium3CheckBox">
+              <property name="text">
+               <string>是否要生成反Helium3粒子？</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="antiHelium3PIDLabel">
+              <property name="text">
+               <string>氦3(PID)：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3PIDLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="antiHelium3PIDLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="antiHelium3MassLabel">
+              <property name="text">
+               <string>粒子质量：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3MassLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="antiHelium3MassLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="antiHelium3WaitingLabel">
+              <property name="text">
+               <string>留着待用：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3WaitingLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="antiHelium3CentralityLowLabel">
+              <property name="text">
+               <string>中心度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3CentralityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="antiHelium3CentralityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="antiHelium3PtLowLabel">
+              <property name="text">
+               <string>横动量下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3PtLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="antiHelium3PtLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="antiHelium3RapidityLowLabel">
+              <property name="text">
+               <string>快度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3RapidityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="antiHelium3RapidityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="antiHelium3CentralityHighLabel">
+              <property name="text">
+               <string>中心度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3CentralityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="antiHelium3CentralityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="antiHeilum3PtLowLabel">
+              <property name="text">
+               <string>横动量上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3PtHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="antiHelium3PtHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLabel" name="antiHelium3RapidityHighLabel">
+              <property name="text">
+               <string>快度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHelium3RapidityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLineEdit" name="antiHelium3RapidityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLineEdit" name="antiHelium3WaitingLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>生成超氚核参数</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="0" column="0" colspan="6">
+             <widget class="QCheckBox" name="hypertritonCheckBox">
+              <property name="text">
+               <string>是否要生成超氚核？</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="hypertritonPIDLabel">
+              <property name="text">
+               <string>超氚(PID)：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonPIDLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="hypertritonPIDLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="hypertritonMassLabel">
+              <property name="text">
+               <string>粒子质量：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonMassLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="hypertritonMassLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="hypertritonWaitingLabel">
+              <property name="text">
+               <string>留着待用：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonWaitingLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLineEdit" name="hypertritonWaitingLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="hypertritonCentralityLowLabel">
+              <property name="text">
+               <string>中心度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonCentralityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="hypertritonCentralityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="hypertritonPtLowLabel">
+              <property name="text">
+               <string>横动量下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonPtLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="hypertritonPtLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="hypertritonRapidityLowLabel">
+              <property name="text">
+               <string>快度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonRapidityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="hypertritonRapidityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="hypertritonCentralityHighLabel">
+              <property name="text">
+               <string>中心度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonCentralityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="hypertritonCentralityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="hypertritonPtHighLabel">
+              <property name="text">
+               <string>横动量上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonPtHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="hypertritonPtHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLabel" name="hypertritonRapidityHighLabel">
+              <property name="text">
+               <string>快度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>hypertritonRapidityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLineEdit" name="hypertritonRapidityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_4">
+           <attribute name="title">
+            <string>生产反超氚核参数</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_7">
+            <item row="0" column="0" colspan="6">
+             <widget class="QCheckBox" name="antiHypertritonCheckBox">
+              <property name="text">
+               <string>是否要生成反超氚核？</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="antiHypertritonPIDLabel">
+              <property name="text">
+               <string>反超氚(PID)：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonPIDLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="antiHypertritonPIDLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLabel" name="antiHypertritonMassLabel">
+              <property name="text">
+               <string>粒子质量：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonMassLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="antiHypertritonMassLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="antiHypertritonWaitingLabel">
+              <property name="text">
+               <string>留着待用：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonWaitingLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLineEdit" name="antiHypertritonWaitingLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="antiHypertritonCentralityLowLabel">
+              <property name="text">
+               <string>中心度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonCentralityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="antiHypertritonCentralityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QLabel" name="antiHypertritonPtLowLabel">
+              <property name="text">
+               <string>横动量下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonPtLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="antiHypertritonPtLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLabel" name="antiHypertritonRapidityLowLabel">
+              <property name="text">
+               <string>快度下限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonRapidityLowLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QLineEdit" name="antiHypertritonRapidityLowLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="antiHypertritonCentralityHighLabel">
+              <property name="text">
+               <string>中心度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonCentralityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="antiHypertritonCentralityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLabel" name="antiHypertritonPtHighLabel">
+              <property name="text">
+               <string>横动量上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonPtHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="antiHypertritonPtHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLabel" name="antiHypertritonRapidityHighLabel">
+              <property name="text">
+               <string>快度上限：</string>
+              </property>
+              <property name="buddy">
+               <cstring>antiHypertritonRapidityHighLineEdit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLineEdit" name="antiHypertritonRapidityHighLineEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="exitButton">
+          <property name="text">
+           <string>退出</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="startButton">
+          <property name="text">
+           <string>开始</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>822</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_F">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="newAction"/>
+    <addaction name="quitAction"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="aboutAction"/>
+    <addaction name="aboutQtAction"/>
+   </widget>
+   <addaction name="menu_F"/>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="newAction"/>
+   <addaction name="quitAction"/>
+   <addaction name="separator"/>
+   <addaction name="aboutAction"/>
+  </widget>
+  <action name="newAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/new.png</normaloff>:/images/new.png</iconset>
+   </property>
+   <property name="text">
+    <string>新建(&amp;N)</string>
+   </property>
+   <property name="statusTip">
+    <string>开始一次新的生成</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>退出(&amp;Q)</string>
+   </property>
+   <property name="statusTip">
+    <string>退出程序</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/tool.png</normaloff>:/images/tool.png</iconset>
+   </property>
+   <property name="text">
+    <string>关于</string>
+   </property>
+   <property name="statusTip">
+    <string>该程序的简介</string>
+   </property>
+  </action>
+  <action name="aboutQtAction">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/help.jpg</normaloff>:/images/help.jpg</iconset>
+   </property>
+   <property name="text">
+    <string>关于Qt和GNU/Linux</string>
+   </property>
+   <property name="statusTip">
+    <string>Qt和GNU/Linux项目简介</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
