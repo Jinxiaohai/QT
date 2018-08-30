@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <QTextStream>
 #include <QDebug>
 #include <QDir>
@@ -61,6 +63,14 @@ void Project::createREADME() {
   readme.close();
 }
 
+void Project::createResources() {
+  QFile readme("resources.qrc");
+  if (!readme.open(QFile::WriteOnly | QFile::Text)) {
+    qDebug() << qPrintable(readme.errorString());
+  }
+  readme.close();
+}
+
 void Project::createRootCMakeLists() {
   QString baseName = QDir(this->currentPath).dirName();
   QString CMakeLists = this->currentPath + "/CMakeLists.txt";
@@ -69,10 +79,18 @@ void Project::createRootCMakeLists() {
     qDebug() << qPrintable(file.errorString());
   }
   QTextStream out(&file);
+  QString tempContent;
+  if (isQt) {
+    tempContent = "set(CMAKE_AUTOMOC ON)\nset(CMAKE_AUTOUIC ON)\nset(CMAKE_AUTORCC ON)";
+  } else {
+    tempContent = "set(CMAKE_AUTOMOC OFF)\nset(CMAKE_AUTOUIC OFF)\nset(CMAKE_AUTORCC OFF)";
+  }
   QString content =
       "# 设定需要的CMake的最小版本\ncmake_minimum_required(VERSION 2.8.11)\n\n# 设定项目的名字\nproject(" + baseName +
       ")\n\n# 一些设定\nset(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)\nset(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)\nset(CMAKE_RUNTIME_OUTPUT_DIRECTORY "
-      "${CMAKE_BINARY_DIR}/bin)\n\n# 一些设定\nset(CMAKE_INCLUDE_CURRENT_DIR ON)\nset(CMAKE_AUTOMOC ON)\nset(CMAKE_AUTOUIC ON)\nset(CMAKE_AUTORCC ON)\nset(CMAKE_CXX_STANDARD 11)\n\n# 查找需要的Qt模块\nfind_package(Qt5Core REQUIRED)\nfind_package(Qt5Gui REQUIRED)\nfind_package(Qt5Widgets "
+      "${CMAKE_BINARY_DIR}/bin)\n\n# 一些设定\nset(CMAKE_INCLUDE_CURRENT_DIR ON)\n" +
+      tempContent +
+      "\nset(CMAKE_CXX_STANDARD 11)\n\n# 查找需要的Qt模块\nfind_package(Qt5Core REQUIRED)\nfind_package(Qt5Gui REQUIRED)\nfind_package(Qt5Widgets "
       "REQUIRED)\nfind_package(Qt5Network REQUIRED)\nfind_package(Qt5OpenGL REQUIRED)\nfind_package(Qt53DCore REQUIRED)\nfind_package(Qt5PrintSupport REQUIRED)\nfind_package(Qt5WebEngine REQUIRED)\nfind_package(Qt5Xml REQUIRED)\nif(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND "
       "Qt5Network_FOUND AND Qt5OpenGL_FOUND AND Qt53DCore_FOUND AND Qt5PrintSupport_FOUND AND Qt5WebEngine_FOUND AND Qt5Xml_FOUND)\n  message(STATUS \"查找到Qt: ${Qt5Core_VERSION_STRING}\" )\nelse(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5Network_FOUND AND Qt5OpenGL_FOUND AND "
       "Qt53DCore_FOUND AND Qt5PrintSupport_FOUND AND Qt5WebEngine_FOUND AND Qt5Xml_FOUND)\n  message(WARNING \"未查找Qt\" )\nendif(Qt5Widgets_FOUND AND Qt5Core_FOUND AND Qt5Gui_FOUND AND Qt5Network_FOUND AND Qt5OpenGL_FOUND AND Qt53DCore_FOUND AND Qt5PrintSupport_FOUND AND Qt5WebEngine_FOUND AND "
@@ -91,15 +109,43 @@ void Project::createSrcCMakeLists() {
     qDebug() << qPrintable(file.errorString());
   }
   QTextStream out(&file);
-  QString content =
-      "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} "
-      "${HEAD_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  ${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  "
-      "${Qt5Xml})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
+  QString content;
+  if (isQt) {
+    content =
+        "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} "
+        "${HEAD_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  ${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  "
+        "${Qt5Xml})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
+  } else {
+    content =
+        "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加资源文件\nqt5_add_resources(QRC_FILES ${PROJECT_SOURCE_DIR}/resources.qrc)\n\n# "
+        "添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} ${HEAD_FILES} ${QRC_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  "
+        "${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  ${Qt5Xml})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
+  }
+
   out << content;
   file.close();
 }
 
+void Project::setPropertity() {
+  char propertity;
+
+  while (true) {
+    std::cout << "Qt Project (y or n)" << std::endl;
+    std::cin >> propertity;
+    if (propertity == 'Y' || propertity == 'y') {
+      isQt = true;
+      break;
+    } else if (propertity == 'N' || propertity == 'n') {
+      isQt = false;
+      break;
+    } else {
+      std::cout << "error, please input y or n" << std::endl;
+    }
+  }
+}
+
 void Project::run() {
+  this->setPropertity();
   this->createDir();
   this->createLicence();
   this->createREADME();

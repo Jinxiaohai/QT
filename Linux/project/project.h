@@ -11,13 +11,16 @@ class Project {
   void createDir();
   void createLicence();
   void createREADME();
+  void createResources();
   void createRootCMakeLists();
   void createSrcCMakeLists();
+  void setPropertity();
 
   void run();
 
  private:
   QString currentPath;
+  bool isQt;
 };
 
 #endif  // PROJECT_H
