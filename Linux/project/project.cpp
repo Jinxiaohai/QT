@@ -17,7 +17,7 @@ void Project::createDir() {
 }
 
 void Project::createLicence() {
-  QFile licence("LICENCE");
+  QFile licence("LICENSE");
   if (!licence.open(QFile::WriteOnly | QFile::Text)) {
     qDebug() << qPrintable(licence.errorString());
   }
@@ -112,9 +112,7 @@ void Project::createSrcCMakeLists() {
   QString content;
   if (isQt) {
     content =
-        "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} "
-        "${HEAD_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  ${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  "
-        "${Qt5Xml})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
+      "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} ${HEAD_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  ${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  ${Qt5Xml})\n\n# 设置依赖\nset_property(TARGET ${PROJECT_NAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
   } else {
     content =
         "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加资源文件\nqt5_add_resources(QRC_FILES ${PROJECT_SOURCE_DIR}/resources.qrc)\n\n# "
