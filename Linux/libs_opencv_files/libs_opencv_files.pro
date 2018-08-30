@@ -17,5 +17,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += libs_opencv_files.h
 SOURCES += libs_opencv_files.cpp main.cpp
 
-target.path = /home/xiaohai/Github/learnQT/self/install/bin
+target.path = /opt/xiaohai/bin
 INSTALLS += target
