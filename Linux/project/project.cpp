@@ -102,6 +102,11 @@ void Project::createRootCMakeLists() {
 }
 
 void Project::createSrcCMakeLists() {
+  QString headFiles = getFormatFiles(currentPath, ".h");
+  QString srcFiles = getFormatFiles(currentPath, ".cpp");
+  QString uiFiles = getFormatFiles(currentPath, ".ui");
+  QString qrcFiles = getFormatFiles(currentPath, ".qrc");
+
   QString baseName = QDir(this->currentPath).dirName();
   QString CMakeLists = this->currentPath + "/src/CMakeLists.txt";
   QFile file(CMakeLists);
@@ -111,15 +116,20 @@ void Project::createSrcCMakeLists() {
   QTextStream out(&file);
   QString content;
   if (isQt) {
-    content =
-      "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} ${HEAD_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  ${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  ${Qt5Xml})\n\n# 设置依赖\nset_property(TARGET ${PROJECT_NAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
+    content = "# 添加源文件\nset(SRCFILES " + srcFiles + "  )\n\n# 添加头文件\nset(HEADFILES " + headFiles + "  )\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n";
+    if (!qrcFiles.isEmpty()) {
+      content += "# 添加资源文件\nqt5_add_resources(QRC_FILES ${PROJECT_SOURCE_DIR}/" + qrcFiles + ")\n\n";
+    }
+    content +=
+        "# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} ${HEAD_FILES} ${QRC_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  "
+        "${Qt5Network_LIBRARIES}\n  "
+        "${Qt5OpenGL_LIBRARIES}\n  ${Qt53DCore_LIBRARIES}\n  ${Qt5PrintSupport_LIBRARIES}\n  ${Qt5WebEngine_LIBRARIES}\n  ${Qt5Xml_LIBRARIES})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
   } else {
-    content =
-        "# 添加文件\naux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SRCFILES)\nfile(GLOB HEADFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.h)\n\n# 进行MOC编译\nqt5_wrap_cpp(HEAD_FILES ${HEADFILES})\n\n# 添加资源文件\nqt5_add_resources(QRC_FILES ${PROJECT_SOURCE_DIR}/resources.qrc)\n\n# "
-        "添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} ${HEAD_FILES} ${QRC_FILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  ${Qt5Network}\n  "
-        "${Qt5OpenGL}\n  ${Qt53DCore}\n  ${Qt5PrintSupport}\n  ${Qt5WebEngine}\n  ${Qt5Xml})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
+    content = "# 添加源文件\nset(SRCFILES " + srcFiles + "  )\n\n# 添加头文件\nset(HEADFILES " + headFiles +
+              "  )\n\n# 添加可执行文件的生成\nadd_executable(${PROJECT_NAME} ${SRCFILES} ${HEADFILES})\ntarget_link_libraries(${PROJECT_NAME}\n  ${ROOT_LIBRARIES}\n  ${OpenCV_LIBS}\n  ${Boost_LIBRARIES}\n  ${Qt5Core_LIBRARIES}\n  ${Qt5Gui_LIBRARIES}\n  ${Qt5Widgets_LIBRARIES}\n  "
+              "${Qt5Network_LIBRARIES}\n  "
+              "${Qt5OpenGL_LIBRARIES}\n  ${Qt53DCore_LIBRARIES}\n  ${Qt5PrintSupport_LIBRARIES}\n  ${Qt5WebEngine_LIBRARIES}\n  ${Qt5Xml_LIBRARIES})\n\n# 安装\ninstall(TARGETS ${PROJECT_NAME}\n  RUNTIME DESTINATION bin)\n# install(TARGETS ${PROJECT_NAME}\n#   LIBRARY DESTINATION lib)\n";
   }
-
   out << content;
   file.close();
 }
@@ -142,6 +152,17 @@ void Project::setPropertity() {
   }
 }
 
+void Project::moveFile() {
+  QDir currentDir(currentPath);
+  QStringList files = currentDir.entryList(QDir::Files | QDir::NoDotAndDotDot);
+  foreach(QString eachFile, files) {
+    if (eachFile.endsWith(".cpp") || eachFile.endsWith(".h") || eachFile.endsWith(".ui")) {
+      QFile::copy(eachFile, "src/" + eachFile);
+      QFile::remove(eachFile);
+    }
+  }
+}
+
 void Project::run() {
   this->setPropertity();
   this->createDir();
@@ -149,4 +170,19 @@ void Project::run() {
   this->createREADME();
   this->createRootCMakeLists();
   this->createSrcCMakeLists();
+  this->moveFile();
+}
+
+QString Project::getFormatFiles(const QString &dirName, const QString &format) {
+  QString resultFiles;
+
+  QDir dir(dirName);
+  foreach(QString eachFile, dir.entryList(QDir::Files | QDir::NoDotAndDotDot)) {
+    if (eachFile.endsWith(format)) {
+      resultFiles += eachFile;
+      resultFiles += "  \n";
+    }
+  }
+
+  return resultFiles;
 }

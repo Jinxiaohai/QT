@@ -16,9 +16,14 @@ class Project {
   void createSrcCMakeLists();
   void setPropertity();
 
+  void moveFile();
+  void addFile();
+
   void run();
 
  private:
+  QString getFormatFiles(const QString &dirName, const QString &format);
+
   QString currentPath;
   bool isQt;
 };
