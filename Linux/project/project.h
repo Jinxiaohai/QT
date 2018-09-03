@@ -3,10 +3,13 @@
 
 #include <QtCore/qglobal.h>
 #include <QString>
+#include <QObject>
 
-class Project {
+class Project : public QObject {
+  Q_OBJECT
+  
  public:
-  Project();
+  Project(QObject *parent = 0);
 
   void createDir();
   void createLicence();

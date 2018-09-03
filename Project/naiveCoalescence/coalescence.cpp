@@ -1,4 +1,5 @@
 #include "TChain.h"
+#include "TLorentzRotation.h"
 
 #include "AMPT.h"
 #include "coalescence.h"
@@ -58,21 +59,97 @@ void Coalescence::getpnl(TChain *&chain, long int entry) {
 void Coalescence::generateParticle(Coalescence::PARTICLETYPE type) {}
 
 void Coalescence::generateHelium3AndAntiHelium3(QVector<Track> &proton, QVector<Track> &neutron) {
-  for (int p1 = 0; p1 != proton.size(); ++p1) {
-    if (proton[p1].getFlag() == 0) {
-      continue;
-    }
-    for (int p2 = p1; p2 != proton.size(); ++p2) {
-      if (proton[p2].getFlag() == 0) {
-        continue;
-      }
-      for (int n1 = 0; n1 != neutron.size(); ++n1) {
-        if (neutron[n1].getFlag() == 0) {
-          continue;
-        }
-        //
+  double labTotalEnergy;
+  TVector3 labTotalMomentum;
+  double resetEnergy;
+  TVector3 betaLabToCMS;
 
-        //
+  TLorentzVector cluterInformation;
+
+  TLorentzVector protonCMS1;
+  TLorentzVector protonCMS2;
+  TLorentzVector neutronCMS1;
+
+  for (int p1 = 0; p1 != proton.size(); ++p1) {
+    if (proton[p1].getFlag() == 0) continue;
+    for (int p2 = p1; p2 != proton.size(); ++p2) {
+      if (proton[p2].getFlag() == 0) continue;
+      for (int n1 = 0; n1 != neutron.size(); ++n1) {
+        if (neutron[n1].getFlag() == 0) continue;
+        labTotalEnergy = proton[p1].getMomentum().Energy() + proton[p2].getMomentum().Energy() + neutron[n1].getMomentum().Energy();
+        labTotalMomentum = proton[p1].getMomentum().Vect() + proton[p2].getMomentum().Vect() + neutron[n1].getMomentum().Vect();
+        resetEnergy = sqrt(labTotalMomentum.Mag2() + PIDMass * PIDMass);
+
+        betaLabToCMS = (-1. / labTotalEnergy) * labTotalMomentum;
+        TLorentzRotation rotation(betaLabToCMS);
+
+        protonCMS1 = rotation * proton[p1].getMomentum();
+        protonCMS2 = rotation * proton[p2].getMomentum();
+        neutronCMS1 = rotation * neutron[n1].getMomentum();
+
+        if ((protonCMS1.Vect() - protonCMS2.Vect()).Mag() > 0.08) continue;
+        if ((protonCMS1.Vect() - neutronCMS1.Vect()).Mag() > 0.08) continue;
+        if ((protonCMS2.Vect() - neutronCMS1.Vect()).Mag() > 0.08) continue;
+
+        cluterInformation.SetE(resetEnergy);
+        cluterInformation.SetVect(labTotalMomentum);
+
+        if (cluterInformation.Rapidity() > this->rapidityHigh || cluterInformation.Rapidity() < this->rapidityLow) continue;
+        if (cluterInformation.Pt() > this->ptHigh || cluterInformation.Pt() < this->ptLow) continue;
+
+        proton[p1].setFlag(0);
+        proton[p2].setFlag(0);
+        neutron[n1].setFlag(0);
+      }
+    }
+  }
+}
+
+void Coalescence::generateHypertritonAndAntiHypertriton(QVector<Track> &proton, QVector<Track> &neutron, QVector<Track> &lambda) {
+  double labTotalEnergy;
+  TVector3 labTotalMomentum;
+  double resetEnergy;
+  TVector3 betaLabToCMS;
+
+  TLorentzVector cluterInformation;
+
+  TLorentzVector protonCMS1;
+  TLorentzVector neutronCMS1;
+  TLorentzVector lambdaCMS1;
+
+  for (int p1 = 0; p1 != proton.size(); ++p1) {
+    if (proton[p1].getFlag() == 0) continue;
+
+    for (int n1 = 0; n1 != neutron.size(); ++n1) {
+      if (neutron[n1].getFlag() == 0) continue;
+
+      for (int l1 = 0; l1 != lambda.size(); ++l1) {
+        if (lambda[l1].getFlag() == 0) continue;
+
+        labTotalEnergy = proton[p1].getMomentum().Energy() + neutron[n1].getMomentum().Energy() + lambda[l1].getMomentum().Energy();
+        labTotalMomentum = proton[p1].getMomentum().Vect() + neutron[n1].getMomentum().Vect() + lambda[l1].getMomentum().Vect();
+        resetEnergy = sqrt(labTotalMomentum.Mag2() + PIDMass * PIDMass);
+
+        betaLabToCMS = (-1. / labTotalEnergy) * labTotalMomentum;
+        TLorentzRotation rotation(betaLabToCMS);
+
+        protonCMS1 = rotation * proton[p1].getMomentum();
+        neutronCMS1 = rotation * neutron[n1].getMomentum();
+        lambdaCMS1 = rotation * lambda[l1].getMomentum();
+
+        if ((protonCMS1.Vect() - neutronCMS1.Vect()).Mag() > 0.08) continue;
+        if ((protonCMS1.Vect() - lambdaCMS1.Vect()).Mag() > 0.08) continue;
+        if ((neutronCMS1.Vect() - lambdaCMS1.Vect()).Mag() > 0.08) continue;
+
+        cluterInformation.SetE(resetEnergy);
+        cluterInformation.SetVect(labTotalMomentum);
+
+        if (cluterInformation.Rapidity() > this->rapidityHigh || cluterInformation.Rapidity() < this->rapidityLow) continue;
+        if (cluterInformation.Pt() > this->ptHigh || cluterInformation.Pt() < this->ptLow) continue;
+
+        proton[p1].setFlag(0);
+        neutron[n1].setFlag(0);
+        lambda[l1].setFlag(0);
       }
     }
   }

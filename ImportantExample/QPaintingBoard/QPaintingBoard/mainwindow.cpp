@@ -10,19 +10,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    resize(700,500);   //主窗口大小设为700*500
+    resize(700,500); 
     area = new PaintArea;
     scrollArea = new QScrollArea;
-    scrollArea->setBackgroundRole(QPalette::Dark);   //scrollArea对象的背景色设为Dark
-    scrollArea->setWidget(area);     //将画布添加到scrollArea中
-    scrollArea->widget()->setMinimumSize(800,600);  //scrollArea初始化大小设为800*600
+    scrollArea->setBackgroundRole(QPalette::Dark);
+    scrollArea->setWidget(area);   
+    scrollArea->widget()->setMinimumSize(800,600);  
 
-    setCentralWidget(scrollArea);    //将scrollArea加入到主窗口的中心区
+    setCentralWidget(scrollArea); 
     isSaved = false;
-    curFile = QStringLiteral("未命名.png");
+    curFile = QStringLiteral("help.png");
 
-    creatColorComboBox(ui->penColorComboBox);   //画笔颜色组合框
-    creatColorComboBox(ui->brushColorComboBox);   //填充颜色组合框
+    creatColorComboBox(ui->penColorComboBox); 
+    creatColorComboBox(ui->brushColorComboBox);
 }
 
 MainWindow::~MainWindow()
@@ -49,12 +49,11 @@ void MainWindow::doOpen()
     if (maybeSave())
     {
          QString fileName = QFileDialog::getOpenFileName(this,
-                                    QStringLiteral("打开文件"), QDir::currentPath());
+                                    QStringLiteral("xiaohai"), QDir::currentPath());
          if (!fileName.isEmpty())
          {
              area->openImage(fileName);
              scrollArea->widget()->resize(area->getImageSize());
-             //获得图片的大小，然后更改scrollArea的大小
              isSaved = true;
              curFile = fileName;
          }
@@ -82,7 +81,7 @@ bool MainWindow::maybeSave()
     if(area->isModified())
     {
         QMessageBox::StandardButton box;
-        box = QMessageBox::warning(this,QStringLiteral("保存文件"),QStringLiteral("图片已经改变，是否保存？"),
+        box = QMessageBox::warning(this,QStringLiteral("xiaohai"),QStringLiteral("xiaohai"),
                                    QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
         if(box == QMessageBox::Yes)
         {
@@ -118,7 +117,7 @@ bool MainWindow::saveFile(QString fileName)
 
 bool MainWindow::doFileSaveAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this,QStringLiteral("另存为"),curFile);
+    QString fileName = QFileDialog::getSaveFileName(this,QStringLiteral("xiaohai"),curFile);
     if(fileName.isEmpty())
     {
         return false;
@@ -207,40 +206,40 @@ void MainWindow::creatColorComboBox(QComboBox *comboBox)
     QPainter painter(&pix);
 
     painter.fillRect(0,0,16,16,Qt::black);   //先绘制一个16*16的小图片，然后给其涂色
-    comboBox->addItem(QIcon(pix),QStringLiteral("黑色")/*,Qt::black*/);   //再用该图片作为组合框条目的图标
+    comboBox->addItem(QIcon(pix),QStringLiteral("xiaohai")/*,Qt::black*/);   //再用该图片作为组合框条目的图标
     painter.fillRect(0,0,16,16,Qt::white);
-    comboBox->addItem(QIcon(pix),QStringLiteral("白色")/*,Qt::white*/);
+    comboBox->addItem(QIcon(pix),QStringLiteral("xiaohai")/*,Qt::white*/);
     painter.fillRect(0,0,16,16,Qt::red);
-    comboBox->addItem(QIcon(pix),QStringLiteral("红色")/*,Qt::red*/);
+    comboBox->addItem(QIcon(pix),QStringLiteral("xiaohai")/*,Qt::red*/);
     painter.fillRect(0,0,16,16,Qt::green);
-    comboBox->addItem(QIcon(pix),QStringLiteral("绿色")/*,Qt::green*/);
+    comboBox->addItem(QIcon(pix),QStringLiteral("xiaohai")/*,Qt::green*/);
     painter.fillRect(0,0,16,16,Qt::blue);
-    comboBox->addItem(QIcon(pix),QStringLiteral("蓝色")/*,Qt::blue*/);
+    comboBox->addItem(QIcon(pix),QStringLiteral("xiaohai")/*,Qt::blue*/);
     painter.fillRect(0,0,16,16,Qt::yellow);
-    comboBox->addItem(QIcon(pix),QStringLiteral("黄色")/*,Qt::yellow*/);
+    comboBox->addItem(QIcon(pix),QStringLiteral("xiaohai")/*,Qt::yellow*/);
 
-    comboBox->addItem(QStringLiteral("无颜色")/*,Qt::transparent*/);  //即透明
+    comboBox->addItem(QStringLiteral("xiaohai")/*,Qt::transparent*/);  //即透明
 }
 
 void MainWindow::on_shapeComboBox_currentIndexChanged(QString shape) //选择图形组合框
 {
-    if(shape == QStringLiteral("无"))
+    if(shape == QStringLiteral("xiaohai"))
         area->setShape(PaintArea::None);   //利用PaintArea类中的枚举变量
-    else if(shape == QStringLiteral("矩形"))
+    else if(shape == QStringLiteral("xiaohai"))
         area->setShape(PaintArea::Rectangle);
-    else if(shape == QStringLiteral("直线"))
+    else if(shape == QStringLiteral("xiaohai"))
         area->setShape(PaintArea::Line);
-    else if(shape == QStringLiteral("椭圆"))
+    else if(shape == QStringLiteral("xiaohai"))
         area->setShape(PaintArea::Ellipse);
 }
 
 void MainWindow::on_penStyleComboBox_currentIndexChanged(QString style)   //画笔风格组合框
 {
-    if(style == QStringLiteral("实线"))
+    if(style == QStringLiteral("xiaohai"))
     {
         area->setPenStyle(Qt::SolidLine);
     }
-    else if(style == QStringLiteral("点线"))
+    else if(style == QStringLiteral("xiaohai"))
     {
         area->setPenStyle(Qt::DotLine);
     }

@@ -7,7 +7,7 @@
 
 #include "project.h"
 
-Project::Project() { this->currentPath = QDir::currentPath(); }
+Project::Project(QObject *parent): QObject(parent) { this->currentPath = QDir::currentPath(); }
 
 void Project::createDir() {
   QDir currentDir(this->currentPath);

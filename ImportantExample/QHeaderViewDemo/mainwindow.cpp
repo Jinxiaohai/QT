@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "diagtableheader.h"
 
-#include <QTablewidget>
+#include <QTableWidget>
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QStandardItemModel>
